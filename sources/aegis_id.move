@@ -1,4 +1,4 @@
-module aegis::aegis_id {
+module aegis::aegis {
     use std::error;
     use std::signer;
     use std::signer::address_of;
@@ -12,8 +12,8 @@ module aegis::aegis_id {
     }
 
     struct Twitter has key {
-        verified: bool,
-        expires: u64,
+        is_verified: bool,
+        expires_at: u64,
     }
 
     const TWITTER_EXP: u64 = 15_552_000; // 6 Months
@@ -43,8 +43,8 @@ module aegis::aegis_id {
         assert!(!exists<Twitter>(profile.res_addr), error::already_exists(E_TWITTER_EXISTS));
 
         move_to(&res_signer, Twitter {
-            verified: true,
-            expires: timestamp::now_seconds() + TWITTER_EXP,
+            is_verified: true,
+            expires_at: timestamp::now_seconds() + TWITTER_EXP,
         });
     }
 
@@ -59,6 +59,6 @@ module aegis::aegis_id {
         assert!(exists<Profile>(addr), error::not_found(E_NO_PROFILE));
         let res_addr = borrow_global<Profile>(addr).res_addr;
         assert!(exists<Twitter>(res_addr), error::not_found(E_TWITTER_EXISTS));
-        borrow_global<Twitter>(res_addr).expires
+        borrow_global<Twitter>(res_addr).expires_at
     }
 }

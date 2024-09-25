@@ -4,6 +4,7 @@ version = "1.0.0"
 authors = []
 
 [addresses]
+aegis = "0x6ca27696c78c7472918773fc2d893407d9590bdc707c56954bbc33ad0b0b0bfc"
 
 [dev-addresses]
 
